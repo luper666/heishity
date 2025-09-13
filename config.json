@@ -1,0 +1,15 @@
+{
+  "site_settings": {
+    "institution_name": "锐联科技",
+    "institution_full_name": "锐联科技",
+    "logo_path": "/logo.svg",
+    "copyright_year": "2025"
+  },
+  "conversion_metrics": {
+    "whitepaper_download_count": 68653
+  },
+  "content_paths": {
+    "about_us_content": "/content/about.md",
+    "research_articles_folder": "content/research"
+  }
+}
