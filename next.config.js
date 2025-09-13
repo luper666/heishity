@@ -2,12 +2,12 @@
 const nextConfig = {
   output: 'export',
   basePath: '/heishity',
-  assetPrefix: '/heishity', // 注意：末尾的斜杠 / 已被移除，这是更规范的写法
-
-  // V-- 这是新增的、解决问题的关键配置 --V
+  assetPrefix: '/heishity',
   images: {
     unoptimized: true,
   },
+  // V-- 新增一行，确保所有链接末尾都有斜杠，提高兼容性 --V
+  trailingSlash: true,
   // ^-- 新增部分结束 --^
 };
 
