@@ -3,7 +3,12 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - master # 或者 master，取决于您的主分支名称
+      - master
+
+# V-- 这是新增的核心部分 --V
+permissions:
+  contents: write
+# ^-- 新增部分结束 --^
 
 jobs:
   build-and-deploy:
@@ -20,5 +25,5 @@ jobs:
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: gh-pages # The branch the action should deploy to.
-          folder: out # The folder the action should deploy.
+          branch: gh-pages
+          folder: out
