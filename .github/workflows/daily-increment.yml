@@ -1,0 +1,19 @@
+name: Daily Counter Increment
+
+on:
+  workflow_dispatch: # 允许手动触发
+  schedule:
+    - cron: '0 8 * * *' # 每天UTC时间早上8点自动运行
+
+jobs:
+  increment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Increment Counter
+        run: |
+          # 生成一个200-800除以30的随机整数 (约每天7-27)
+          INCREMENT=$(( RANDOM % 21 + 7 ))
+          
+          # 向Upstash发送INCRBY命令
+          curl -L "${{ secrets.UPSTASH_REDIS_REST_URL }}/incrby/page_views/$INCREMENT" \
+            -H "Authorization: Bearer ${{ secrets.UPSTASH_REDIS_REST_TOKEN }}"
