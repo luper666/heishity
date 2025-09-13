@@ -1,14 +1,15 @@
 /** @type {import('next').NextConfig} */
+const isProd = process.env.NODE_ENV === 'production'
+
 const nextConfig = {
   output: 'export',
-  basePath: '/heishity',
-  assetPrefix: '/heishity',
+  // 核心配置：仅在生产环境（部署时）添加前缀
+  basePath: isProd ? '/heishity' : '',
+  assetPrefix: isProd ? '/heishity/' : '',
   images: {
     unoptimized: true,
   },
-  // V-- 新增一行，确保所有链接末尾都有斜杠，提高兼容性 --V
   trailingSlash: true,
-  // ^-- 新增部分结束 --^
 };
 
 module.exports = nextConfig;
