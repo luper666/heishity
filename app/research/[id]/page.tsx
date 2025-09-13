@@ -1,19 +1,26 @@
-import { getPostData } from '@/lib/posts';
-import { PageHeader } from '@/components/PageHeader'; // 确保这一行存在
+import { getPostData, getSortedPostsData } from '@/lib/posts'; // <-- 修改：多引入一个函数
+import { PageHeader } from '@/components/PageHeader';
 import { Calendar } from 'lucide-react';
 
 type Params = {
   id: string
 }
 
+// V-- 这是新增的核心函数 --V
+export async function generateStaticParams() {
+  const posts = getSortedPostsData();
+  return posts.map(post => ({
+    id: post.id,
+  }));
+}
+// ^-- 新增函数结束 --^
+
 export default async function Post({ params }: { params: Params }) {
   const postData = await getPostData(params.id);
 
   return (
     <article>
-      {/* 这里是之前出错的地方，现在已修复 */}
       <PageHeader title={postData.title} subtitle="" />
-
       <div className="container mx-auto px-4 py-16">
         <div className="max-w-3xl mx-auto">
           <div className="flex items-center text-text-secondary mb-8">
