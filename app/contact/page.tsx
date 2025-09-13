@@ -1,20 +1,18 @@
+```typescript
 "use client";
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation'; // <-- 引入 useRouter
 import { PageHeader } from '@/components/PageHeader';
 import config from '@/config.json';
 import { Users, Loader, CheckCircle, AlertTriangle } from 'lucide-react';
 
 type FormState = 'idle' | 'submitting' | 'success' | 'error';
 
-// 在这里定义您的公开PDF链接
-const WHITE_PAPER_URL = "/heishity/AI驱动量化策略深度白皮书.pdf";
+// 1. 确保这里的PDF文件名和路径完全正确！
+const WHITE_PAPER_URL = "/heishity/AI驱动量化策略深度白皮书.pdf"; 
 
 export default function ContactPage() {
   const { whitepaper_download_count } = config.conversion_metrics;
-  const router = useRouter(); // <-- 初始化 router
-
   const [formData, setFormData] = useState({ name: '', phone: '' });
   const [errors, setErrors] = useState({ name: '', phone: '' });
   const [formState, setFormState] = useState<FormState>('idle');
@@ -24,24 +22,13 @@ export default function ContactPage() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const validate = () => {
+  const validate = () => { /* ...校验逻辑保持不变... */
     let tempErrors = { name: '', phone: '' };
     let isValid = true;
-
-    if (!formData.name) {
-      tempErrors.name = '姓名不能为空';
-      isValid = false;
-    }
-    
+    if (!formData.name) { tempErrors.name = '姓名不能为空'; isValid = false; }
     const phoneRegex = /^1[3-9]\d{9}$/;
-    if (!formData.phone) {
-      tempErrors.phone = '手机号不能为空';
-      isValid = false;
-    } else if (!phoneRegex.test(formData.phone)) {
-      tempErrors.phone = '请输入11位有效的国内手机号码';
-      isValid = false;
-    }
-
+    if (!formData.phone) { tempErrors.phone = '手机号不能为空'; isValid = false; } 
+    else if (!phoneRegex.test(formData.phone)) { tempErrors.phone = '请输入11位有效的国内手机号码'; isValid = false; }
     setErrors(tempErrors);
     return isValid;
   };
@@ -52,18 +39,31 @@ export default function ContactPage() {
 
     setFormState('submitting');
     
-    // 模拟保存数据的操作 (未来您可以将formData发送到您的数据库)
-    await new Promise(resolve => setTimeout(resolve, 1000)); 
+    try {
+      // 2. 将数据发送到您的Formspree链接
+      const response = await fetch("https://formspree.io/f/meoldpbq", { // <--- 在这里粘贴您自己的Formspree链接！
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
 
-    setFormState('success');
+      if (!response.ok) throw new Error('Network response was not ok.');
 
-    // **关键修改：提交成功后，延迟1秒然后跳转到PDF链接**
-    setTimeout(() => {
-      window.open(WHITE_PAPER_URL, '_blank');
-    }, 1000);
+      setFormState('success');
+      
+      // 3. 提交成功后，打开PDF
+      setTimeout(() => {
+        window.open(WHITE_PAPER_URL, '_blank');
+      }, 1000);
+
+    } catch (error) {
+      setFormState('error');
+    }
   };
 
   return (
+    // ... JSX部分代码保持不变 ...
+    // 为了简洁，这里省略了和上次完全一样的HTML部分
     <div>
       <PageHeader
         title="交流与合作"
@@ -83,7 +83,6 @@ export default function ContactPage() {
             </div>
             
             <form onSubmit={handleSubmit} className="space-y-6">
-              {/* 姓名 */}
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-text-secondary">姓名</label>
                 <input type="text" name="name" id="name" value={formData.name} onChange={handleChange} required className="mt-1 block w-full bg-background border border-border rounded-md shadow-sm py-3 px-4 text-text-main focus:outline-none focus:ring-primary focus:border-primary" />
@@ -91,29 +90,33 @@ export default function ContactPage() {
                 {errors.name && <p className="mt-1 text-xs text-red-500">{errors.name}</p>}
               </div>
               
-              {/* 手机号 */}
               <div>
                 <label htmlFor="phone" className="block text-sm font-medium text-text-secondary">手机号</label>
                 <input type="tel" name="phone" id="phone" value={formData.phone} onChange={handleChange} required className="mt-1 block w-full bg-background border border-border rounded-md shadow-sm py-3 px-4 text-text-main focus:outline-none focus:ring-primary focus:border-primary" />
                 {errors.phone && <p className="mt-1 text-xs text-red-500">{errors.phone}</p>}
               </div>
 
-              {/* 提交按钮 */}
               <div className="pt-4">
                 <button type="submit" disabled={formState === 'submitting' || formState === 'success'} className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-background bg-primary hover:bg-primary-hover focus:outline-none disabled:bg-gray-600 disabled:cursor-not-allowed">
                   {formState === 'submitting' && <Loader className="animate-spin w-5 h-5 mr-2" />}
                   {formState === 'idle' && '确认提交'}
-                  {formState === 'submitting' && '正在验证...'}
+                  {formState === 'submitting' && '正在提交...'}
                   {formState === 'success' && '即将跳转...'}
+                  {formState === 'error' && '提交失败, 请重试'}
                 </button>
               </div>
             </form>
 
-            {/* 提交反馈信息 */}
             {formState === 'success' && (
               <div className="mt-6 flex items-center text-green-400 bg-green-900/20 p-4 rounded-md">
                 <CheckCircle className="w-5 h-5 mr-3" />
-                <p>验证成功！正在为您打开白皮书...</p>
+                <p>提交成功！正在为您打开白皮书...</p>
+              </div>
+            )}
+             {formState === 'error' && (
+              <div className="mt-6 flex items-center text-red-400 bg-red-900/20 p-4 rounded-md">
+                <AlertTriangle className="w-5 h-5 mr-3" />
+                <p>提交失败, 可能是网络问题, 请稍后重试。</p>
               </div>
             )}
           </div>
@@ -122,3 +125,4 @@ export default function ContactPage() {
     </div>
   );
 }
+```
