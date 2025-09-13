@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from 'react';
@@ -8,11 +7,13 @@ import { Users, Loader, CheckCircle, AlertTriangle } from 'lucide-react';
 
 type FormState = 'idle' | 'submitting' | 'success' | 'error';
 
-// 1. 确保这里的PDF文件名和路径完全正确！
+// 确保这里的PDF文件名和路径完全正确
 const WHITE_PAPER_URL = "/heishity/AI驱动量化策略深度白皮书.pdf"; 
 
 export default function ContactPage() {
-  const { whitepaper_download_count } = config.conversion_metrics;
+  // **核心修改：用 state 来管理计数值，初始值为配置文件中的数字**
+  const [viewCount, setViewCount] = useState(config.conversion_metrics.whitepaper_download_count);
+  
   const [formData, setFormData] = useState({ name: '', phone: '' });
   const [errors, setErrors] = useState({ name: '', phone: '' });
   const [formState, setFormState] = useState<FormState>('idle');
@@ -22,7 +23,7 @@ export default function ContactPage() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const validate = () => { /* ...校验逻辑保持不变... */
+  const validate = () => {
     let tempErrors = { name: '', phone: '' };
     let isValid = true;
     if (!formData.name) { tempErrors.name = '姓名不能为空'; isValid = false; }
@@ -40,8 +41,8 @@ export default function ContactPage() {
     setFormState('submitting');
     
     try {
-      // 2. 将数据发送到您的Formspree链接
-      const response = await fetch("https://formspree.io/f/meoldpbq", { // <--- 在这里粘贴您自己的Formspree链接！
+      // 我们依然将数据发送到Formspree来接收客户信息
+      const response = await fetch("https://formspree.io/f/xxxxxxxx", { // <--- 请确保这里是您自己的Formspree链接！
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -51,7 +52,9 @@ export default function ContactPage() {
 
       setFormState('success');
       
-      // 3. 提交成功后，打开PDF
+      // **核心修改：提交成功后，前端计数值 +1**
+      setViewCount(prevCount => prevCount + 1);
+
       setTimeout(() => {
         window.open(WHITE_PAPER_URL, '_blank');
       }, 1000);
@@ -62,8 +65,6 @@ export default function ContactPage() {
   };
 
   return (
-    // ... JSX部分代码保持不变 ...
-    // 为了简洁，这里省略了和上次完全一样的HTML部分
     <div>
       <PageHeader
         title="交流与合作"
@@ -76,12 +77,14 @@ export default function ContactPage() {
               <div className="inline-flex items-center justify-center bg-background px-4 py-2 rounded-full border border-border mb-4">
                 <Users className="w-5 h-5 text-primary mr-2" />
                 <span className="text-text-main">
-                  已有 <strong className="text-primary">{whitepaper_download_count.toLocaleString()}</strong> 位专业投资者获取
+                  {/* **核心修改：现在显示的是动态的 state 值** */}
+                  已有 <strong className="text-primary">{viewCount.toLocaleString()}</strong> 位专业投资者获取
                 </span>
               </div>
               <h3 className="text-2xl font-semibold text-text-main">提交信息，即刻获取</h3>
             </div>
             
+            {/* 表单的JSX部分保持完全不变 */}
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-text-secondary">姓名</label>
@@ -93,7 +96,7 @@ export default function ContactPage() {
               <div>
                 <label htmlFor="phone" className="block text-sm font-medium text-text-secondary">手机号</label>
                 <input type="tel" name="phone" id="phone" value={formData.phone} onChange={handleChange} required className="mt-1 block w-full bg-background border border-border rounded-md shadow-sm py-3 px-4 text-text-main focus:outline-none focus:ring-primary focus:border-primary" />
-                {errors.phone && <p className="mt-1 text-xs text-red-500">{errors.phone}</p>}
+                {errors.phone && <p className="mt-1 text-xs text-red-500">{errors.name}</p>}
               </div>
 
               <div className="pt-4">
