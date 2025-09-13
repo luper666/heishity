@@ -7,6 +7,10 @@ import html from 'remark-html';
 const postsDirectory = path.join(process.cwd(), 'content/research');
 
 export function getSortedPostsData() {
+  // 确保 postsDirectory 存在
+  if (!fs.existsSync(postsDirectory)) {
+    return [];
+  }
   const fileNames = fs.readdirSync(postsDirectory);
   const allPostsData = fileNames.map(fileName => {
     const id = fileName.replace(/\.md$/, '');
