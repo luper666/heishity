@@ -9,7 +9,7 @@ import { Users, Loader, CheckCircle, AlertTriangle } from 'lucide-react';
 type FormState = 'idle' | 'submitting' | 'success' | 'error';
 
 // 在这里定义您的公开PDF链接
-const WHITE_PAPER_URL = "/heishity/AI驱动量化策略深度白皮书.PDF";
+const WHITE_PAPER_URL = "/heishity/AI驱动量化策略深度白皮书.pdf";
 
 export default function ContactPage() {
   const { whitepaper_download_count } = config.conversion_metrics;
