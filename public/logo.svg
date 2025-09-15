@@ -1,17 +1,25 @@
-<svg width="250" height="150" viewBox="0 0 250 150" xmlns="http://www.w3.org/2000/svg">
-  <g id="icon" transform="translate(125, 55) scale(0.8)">
-    <path d="M-15,-35 L35,-55 C45,-60 55,-50 55,-40 L25,30 C15,40 -5,45 -15,35 L-55,-15 C-65,-25 -60,-35 -50,-35 Z" fill="#D4AF37"/>
+<svg width="200" height="200" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#B8860B;stop-opacity:1" />
+    </linearGradient>
     
-    <path d="M-25,-50 L25,-70 C35,-75 45,-65 45,-55 L15,15 C5,25 -15,30 -25,20 L-65,-30 C-75,-40 -70,-50 -60,-50 Z" fill="#1C1C1C"/>
-  </g>
+    <path id="smallDiamond" d="M10 0 L20 10 L10 20 L0 10 Z"/>
+    
+  </defs>
 
-  <g id="text-paths" transform="translate(26, 125)">
-    <path fill="#EFEFEF" d="M15.47 0.938H2.422V-12.7H14.77V-10.2H5.156V-6.797H14.22V-4.301H5.156V-1.562H15.47V0.938Z"/>
-    <path fill="#EFEFEF" d="M30.08 0.938H17.03V-12.7H30.08V-10.3H26.72V-7.656C27.94 -7.219 28.79 -6.3 28.79 -5.016C28.79 -3.328 27.61 -2.5 25.78 -2.5H19.77V0.938H26.02C28.71 -0.0469 30.08 -1.25 30.08 -3.141C30.08 -4.688 29.14 -5.766 27.42 -6.234V-6.281C28.59 -6.594 29.3 -7.5 29.3 -8.672C29.3 -10 28.36 -10.94 26.88 -11.2V-12.7H17.03V0.938H30.08ZM25.55 -10.2C26.56 -10.2 26.91 -9.5 26.91 -8.766C26.91 -7.938 26.52 -7.3 25.5 -7.3H19.77V-10.2H25.55ZM25.78 -5.016C26.72 -5.016 27.07 -4.4 27.07 -3.672C27.07 -2.844 26.68 -2.3 25.73 -2.3H19.77V-5.016H25.78Z"/>
-    <path fill="#EFEFEF" d="M49.61 0.938L47.73 -4.5H38.28L36.38 0.938H33.52L42.27 -12.7H43.79L52.55 0.938H49.61ZM43.01 -10.5L39.38 -2H46.6L43.01 -10.5Z"/>
-    <path fill="#EFEFEF" d="M68.52 -12.7V0.938H65.78V-4.5L59.14 0.938H56.56L63.05 -5.2L56.52 -12.7H59.53L64.45 -6.7L65.78 -8.2V-12.7H68.52Z"/>
-    <path fill="#EFEFEF" d="M84.22 0.938H71.17V-12.7H84.22V-10.2H73.91V-6.797H83.05V-4.301H73.91V-1.562H84.22V0.938Z"/>
-    <path fill="#EFEFEF" d="M102.3 -12.7C106.1 -12.7 108.9 -9.9 108.9 -6.031C108.9 -2.1 106.1 0.9 102.3 0.9H94.14V-12.7H102.3ZM102.1 -1.5C104.5 -1.5 106.1 -3.2 106.1 -6.031C106.1 -8.8 104.5 -10.4 102.1 -10.4H96.88V-1.5H102.1Z"/>
-    <path fill="#EFEFEF" d="M125.6 -12.7V-10.2H117.8V-7H124.6V-4.5H117.8V-1.8H125.8V0.938H115.1V-12.7H125.6Z"/>
+  <g transform="translate(50,50) rotate(45)">
+    
+    <rect x="-30" y="-30" width="20" height="20" fill="url(#goldGradient)" transform="rotate(-45)"/>
+    
+    <rect x="10" y="10" width="20" height="20" fill="url(#goldGradient)" transform="rotate(-45)"/>
+    
+    <rect x="10" y="-30" width="20" height="20" fill="none" stroke="url(#goldGradient)" stroke-width="2" transform="rotate(-45)"/>
+    <rect x="15" y="-25" width="10" height="10" fill="none" stroke="url(#goldGradient)" stroke-width="2" transform="rotate(-45)"/>
+
+    <rect x="-30" y="10" width="20" height="20" fill="none" stroke="url(#goldGradient)" stroke-width="2" transform="rotate(-45)"/>
+    <rect x="-25" y="15" width="10" height="10" fill="none" stroke="url(#goldGradient)" stroke-width="2" transform="rotate(-45)"/>
+    
   </g>
 </svg>
