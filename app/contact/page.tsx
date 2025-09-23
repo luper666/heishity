@@ -64,13 +64,48 @@ export default function ContactPage() {
     }
   };
 
-  return (
+return (
     <div>
       <PageHeader
         title="交流与合作"
-        subtitle="提交信息，即刻在线阅览《AI驱动量化策略深度白皮书》"
+        subtitle={<span className="font-bold text-primary">提交信息，即刻在线阅览《AI驱动量化策略深度白皮书》</span>}
       />
-      <section className="py-20">
+      
+      {/* ===== 开始：新增的文本内容区域 ===== */}
+      <section className="py-16 text-base">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <div className="bg-surface p-8 md:p-10 rounded-lg border border-border text-text-secondary leading-relaxed">
+            <p className="mb-6">
+              我们是黑石投研，一群着迷于数据与算法的技术人。我们相信，严谨的逻辑和创新的科技，能够帮助人们更深入地理解复杂信息背后的规律。
+            </p>
+            <p className="mb-4 text-text-main">
+              在这里，我们主要做两件事：
+            </p>
+            <ul className="list-disc list-inside mb-6 space-y-3">
+              <li>
+                <strong className="font-semibold text-text-main">探索前沿的策略研究方法：</strong>我们痴迷于打磨各种量化分析模型，并将探索过程中的思考和发现分享给你。
+              </li>
+              <li>
+                <strong className="font-semibold text-text-main">开发专业的分析辅助软件：</strong>我们致力于将复杂的研究逻辑，转化为简洁、高效的软件工具，做你市场研究和学习的好帮手。
+              </li>
+            </ul>
+            <p className="mb-6">
+              我们不是投资机构，也不提供任何投资建议。我们更像一个技术实验室，希望通过分享我们的研究成果和软件工具，与你一同探索、一同成长。
+            </p>
+            <p className="font-semibold text-text-main mb-2">
+              👇 想加入我们的研究社群吗？
+            </p>
+            <p>
+              在这里，你可以和我们的研究员直接交流，抢先体验新出炉的软件功能，与更多量化同好们一起碰撞思想的火花！
+              <br/>
+              期待与你更近一步的交流！
+            </p>
+          </div>
+        </div>
+      </section>
+      {/* ===== 结束：新增的文本内容区域 ===== */}
+
+      <section className="pb-20 pt-4">
         <div className="container mx-auto px-4 max-w-xl">
           <div className="bg-surface p-8 md:p-12 rounded-lg border border-border">
             <div className="text-center mb-8">
